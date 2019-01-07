@@ -12,12 +12,15 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
+    { path: '/user-dashboard', component: require('./components/User-Dashboard.vue').default },
+    { path: '/adm-dashboard', component: require('./components/Adm-Dashboard.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/adm-condominio', component: require('./components/Adm-Condominio.vue').default }
   ]
 
   const router = new VueRouter({
+    mode: 'history',
+    linkActiveClass: 'active',
     routes // short for `routes: routes`
   })
   

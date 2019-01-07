@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link">
+            <router-link to="/user-dashboard" class="nav-link" active-class="active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
+            <router-link to="/profile" class="nav-link" active-class="active">
               <i class="nav-icon fas fa-user-alt"></i>
               <p>
                 Perfil
@@ -152,13 +152,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
               <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Sair
                 </p>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+             @csrf
+            </form>
           </li>
+
 
         </ul>
       </nav>
@@ -193,7 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Control sidebar content goes here -->
     <div class="p-3">
      <u>
-     <a href="#" class="nav-link">
+     <a href="{{route('admin')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               
                 Administrador

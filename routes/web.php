@@ -19,3 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin','HomeController@admin')->name('admin');
+
+//Corrigir erro de rodas
+Route::get('{patch}', "HomeController@index")->where('path', '([A-z\d-\/_.]+)?' );
