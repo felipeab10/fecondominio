@@ -21,13 +21,16 @@
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Tipo</th>
+                    <th>Dt Created</th>
                     <th>Modificar</th>
                   </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
+
+                  <tr v-for="user in users" :key="user.id">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.type}}</td>
+                    <td>{{user.created_at}}</td>
                     <td>
                     <a href="#">
                     <i class="fa fa-edit"></i>
@@ -56,11 +59,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form @submit.prevent="CreateUser">
       <div class="modal-body">
     
         <div class="form-group">
         <input placeholder="Nome" v-model="form.name" type="text" name="name"
-        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+        class="form-control date" id="phone" :class="{ 'is-invalid': form.errors.has('name') }">
       <has-error :form="form" field="name"></has-error>
         </div>
      
@@ -100,8 +104,9 @@
     
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Criar</button>
+        <button type="submit" class="btn btn-primary">Criar</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -112,9 +117,12 @@
 </template>
 
 <script>
+
+
     export default {
          data () {
     return {
+      users: {},
       // Create a new form instance
       form: new Form({
         name: '',
@@ -127,9 +135,21 @@
       })
     }
   },
+  
+  methods:{
 
-        mounted() {
-            console.log('Component mounted.')
+    loadUsers(){
+      axios.get("api/user").then(({ data })=>(this.users = data.data));
+
+    },
+
+      CreateUser(){
+         this.form.post('api/user');
+      }
+  },
+
+        created() {
+            this.loadUsers();
         }
     }
 </script>
