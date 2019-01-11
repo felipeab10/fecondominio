@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\API;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
 class UserAdminController extends Controller
 {
     /**
@@ -18,7 +15,6 @@ class UserAdminController extends Controller
     {
         return User::latest()->paginate(10);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -27,7 +23,6 @@ class UserAdminController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request,[
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
@@ -41,11 +36,7 @@ class UserAdminController extends Controller
             'photo' => $request['photo'],
             'password' => Hash::make($request['password']),
         ]);
-
-
-
     }
-
     /**
      * Display the specified resource.
      *
@@ -56,7 +47,6 @@ class UserAdminController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -66,9 +56,16 @@ class UserAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $user = User::findOrFail($id);
 
+        $this->validate($request,[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.$user->id,
+            'password' => 'sometimes|min:4',
+        ]);
+
+        $user->update($request->all());
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -77,6 +74,8 @@ class UserAdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return ['message'=>'Usuário Deletado'];
     }
 }

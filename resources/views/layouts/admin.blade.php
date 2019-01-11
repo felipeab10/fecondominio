@@ -123,10 +123,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
+                
               </li>
             </ul>
           </li>
@@ -172,7 +169,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-      <router-view></router-view>
+       <!-- for example router view -->
+       <router-view></router-view>
+        <!-- set progressbar -->
+       <vue-progress-bar></vue-progress-bar>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
