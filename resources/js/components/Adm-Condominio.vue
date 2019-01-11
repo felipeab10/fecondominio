@@ -180,13 +180,32 @@
       axios.get("api/adm-condominio").then(({ data })=>(this.condos = data.data));
     },
             CriarCondominio(){
+                this.$Progress.start()
                 this.form.post('api/adm-condominio')
-            }
-        },
+               .then(()=>{
+                Fire.$emit('PosCriado');
+                $('#Condominio').modal('hide');
+                toast({
+                    type: 'success',
+                    title: 'Adicionado com Sucesso!',
+                })
+                this.$Progress.finish()
+
+               })
+               .cath(()=>{
+
+               })
+         
+      }
+  },
  
 
         created() {
+
             this.loadCondos();
+             Fire.$on('PosCriado',() => {
+              this.loadCondos();
+            }); 
         },
     }
 </script>

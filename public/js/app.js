@@ -1966,11 +1966,28 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     CriarCondominio: function CriarCondominio() {
-      this.form.post('api/adm-condominio');
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.post('api/adm-condominio').then(function () {
+        Fire.$emit('PosCriado');
+        $('#Condominio').modal('hide');
+        toast({
+          type: 'success',
+          title: 'Adicionado com Sucesso!'
+        });
+
+        _this2.$Progress.finish();
+      }).cath(function () {});
     }
   },
   created: function created() {
+    var _this3 = this;
+
     this.loadCondos();
+    Fire.$on('PosCriado', function () {
+      _this3.loadCondos();
+    });
   }
 });
 
