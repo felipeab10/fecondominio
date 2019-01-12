@@ -62,26 +62,35 @@
       <div class="row">
      <div class="col-md-8"> 
       <div class="form-group form-control-sm">
-         <input v-model="form.nome" type="text" class="form-control" placeholder="Nome do Condomínio" id="recipient-name">
-         </div>  
+         <input v-model="form.nome" type="text" class="form-control" placeholder="Nome do Condomínio" 
+         :class="{ 'is-invalid': form.errors.has('nome') }">
+         <has-error :form="form" field="nome"></has-error>
+        </div>  
        </div>
+       
      </div>
 
     <div class="row">
      <div class="col-md-4"> 
       <div class="form-group form-control-sm">
-         <input v-model="form.cnpj" type="text" class="form-control" placeholder="CNPJ" id="recipient-name">
+         <input v-model="form.cnpj" type="text" class="form-control" placeholder="CNPJ"
+         :class="{ 'is-invalid': form.errors.has('cnpj') }">
+      <has-error :form="form" field="cnpj"></has-error>
          </div>  
        </div>
+<div class="row">
+</div>
 
-         <div class="col-md-4"> 
-      <div class="form-group form-control-sm">
-      <label for="dt-inauguracao" >Data Inauguração</label>
-         <input v-model="form.dt_inauguracao"  type="date" class="form-control" placeholder="Dt Inauguração" id="recipient-name">
-         </div>  
-       </div>
 
      </div>
+
+    <div class="row">
+     <div class="col-md-6"> 
+      <div class="form-group form-control-sm">
+         <input v-model="form.email" type="email" class="form-control" placeholder="E-mail" id="recipient-name">
+         </div>  
+       </div>
+       </div>
 
 
      <div class="row">
@@ -136,7 +145,21 @@
          </div>  
        </div>
      </div>
-     
+
+        <div class="row">
+        <div class="col-md-4"> 
+        <div class="form-group form-control-sm ">
+               <select v-model="form.status" class="form-control" placeholder="Status" id="exampleFormControlSelect1">
+               <option value="">Status</option>
+               <option value="Ativo">Ativo</option>
+               <option value="Desativado">Desativado</option>
+          </select>
+          </div>
+          </div>
+  </div>
+
+              
+
 
         </div>
       </div>
@@ -171,6 +194,8 @@
                  complemento: '',
                  cidade: '',
                  estado: '',
+                 status: '',
+                 email: '',
                  remember:false
               })    
             }
@@ -190,7 +215,7 @@
                     title: 'Adicionado com Sucesso!',
                 })
                 this.$Progress.finish()
-
+                this.form.reset();
                })
                .cath(()=>{
 

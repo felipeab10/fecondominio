@@ -26,6 +26,7 @@ class CreateCondominioAdminsTable extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->string('status')->nullable();
+            $table->string('email')->nullable();
             $table->string('user_created')->nullable();
             $table->timestamps();
         });

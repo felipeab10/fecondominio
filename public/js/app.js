@@ -1935,6 +1935,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1952,6 +1975,8 @@ __webpack_require__.r(__webpack_exports__);
         complemento: '',
         cidade: '',
         estado: '',
+        status: '',
+        email: '',
         remember: false
       })
     };
@@ -1978,6 +2003,8 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this2.$Progress.finish();
+
+        _this2.form.reset();
       }).cath(function () {});
     }
   },
@@ -58312,10 +58339,12 @@ var render = function() {
                                   }
                                 ],
                                 staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("nome")
+                                },
                                 attrs: {
                                   type: "text",
-                                  placeholder: "Nome do Condomínio",
-                                  id: "recipient-name"
+                                  placeholder: "Nome do Condomínio"
                                 },
                                 domProps: { value: _vm.form.nome },
                                 on: {
@@ -58330,8 +58359,13 @@ var render = function() {
                                     )
                                   }
                                 }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "nome" }
                               })
-                            ]
+                            ],
+                            1
                           )
                         ])
                       ]),
@@ -58352,11 +58386,10 @@ var render = function() {
                                   }
                                 ],
                                 staticClass: "form-control",
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "CNPJ",
-                                  id: "recipient-name"
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("cnpj")
                                 },
+                                attrs: { type: "text", placeholder: "CNPJ" },
                                 domProps: { value: _vm.form.cnpj },
                                 on: {
                                   input: function($event) {
@@ -58370,38 +58403,41 @@ var render = function() {
                                     )
                                   }
                                 }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "cnpj" }
                               })
-                            ]
+                            ],
+                            1
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "row" })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
                           _c(
                             "div",
                             { staticClass: "form-group form-control-sm" },
                             [
-                              _c(
-                                "label",
-                                { attrs: { for: "dt-inauguracao" } },
-                                [_vm._v("Data Inauguração")]
-                              ),
-                              _vm._v(" "),
                               _c("input", {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.form.dt_inauguracao,
-                                    expression: "form.dt_inauguracao"
+                                    value: _vm.form.email,
+                                    expression: "form.email"
                                   }
                                 ],
                                 staticClass: "form-control",
                                 attrs: {
-                                  type: "date",
-                                  placeholder: "Dt Inauguração",
+                                  type: "email",
+                                  placeholder: "E-mail",
                                   id: "recipient-name"
                                 },
-                                domProps: { value: _vm.form.dt_inauguracao },
+                                domProps: { value: _vm.form.email },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
@@ -58409,7 +58445,7 @@ var render = function() {
                                     }
                                     _vm.$set(
                                       _vm.form,
-                                      "dt_inauguracao",
+                                      "email",
                                       $event.target.value
                                     )
                                   }
@@ -58689,6 +58725,72 @@ var render = function() {
                                   }
                                 }
                               })
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group form-control-sm " },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.status,
+                                      expression: "form.status"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    placeholder: "Status",
+                                    id: "exampleFormControlSelect1"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "status",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("option", { attrs: { value: "" } }, [
+                                    _vm._v("Status")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "Ativo" } }, [
+                                    _vm._v("Ativo")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { attrs: { value: "Desativado" } },
+                                    [_vm._v("Desativado")]
+                                  )
+                                ]
+                              )
                             ]
                           )
                         ])

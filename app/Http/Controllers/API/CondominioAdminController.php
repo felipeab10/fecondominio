@@ -35,6 +35,20 @@ class CondominioAdminController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request,[
+            'nome' => 'required|string|max:191',
+            'cnpj' => 'required|string|unique:condominio_admins',
+            'cep' => 'required|string|max:9',
+            'endereco' => 'required|string|max:191',
+            'numero' => 'required|string|max:10',
+            'bairro' => 'required|string|max:191',
+            'cidade' => 'required|string|max:191',
+            'estado' =>'required|string|max:191',
+            'email' => 'required|string|email|max:191',
+
+        ]);
+
       return condominioAdmin::create([
       'nome'=>$request['nome'],
       'cnpj'=>$request['cnpj'],
@@ -46,6 +60,8 @@ class CondominioAdminController extends Controller
       'complemento'=>$request['complemento'],
       'cidade'=>$request['cidade'],
       'estado'=>$request['estado'],
+      'status'=>$request['status'],
+      'email'=>$request['email'],
       ]);
     }
 
