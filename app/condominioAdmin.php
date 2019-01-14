@@ -10,7 +10,7 @@ class condominioAdmin extends Model
     use Notifiable;
 
     protected $fillable = [
-        'nome', 'cnpj', 'dt_inauguracao', 'cep','endereco', 'numero', 'bairro','complemento', 'cidade','estado','status',
+        'cd_adm_condo','nome', 'cnpj', 'dt_inauguracao', 'cep','endereco', 'numero', 'bairro','complemento', 'cidade','estado','status',
     
     ];
 }

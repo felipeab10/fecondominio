@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('user', 'API\UserAdminController');
 Route::apiResource('adm-condominio','API\CondominioAdminController');
+Route::get('profile','API\UserAdminController@profile');
+Route::put('profile','API\UserAdminController@updateProfile');

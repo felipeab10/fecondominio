@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class CondominioAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -73,7 +78,8 @@ class CondominioAdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $views = condominioAdmin::findOrFail($id);
+        return view('view-condominio',compact($views));
     }
 
     /**

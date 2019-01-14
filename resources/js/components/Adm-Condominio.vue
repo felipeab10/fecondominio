@@ -23,7 +23,7 @@
                   </tr>
 
                   <tr v-for="condo in condos" key="condo.cd_adm_condo">
-                    <td>{{condo.cd_adm_condo}}</td>
+                    <a href="#" @click="views()"><td >{{condo.cd_adm_condo}}</td></a>
                     <td>{{condo.nome}}</td>
                     <td>{{condo.cnpj}}</td>
                     <td>{{condo.dt_inauguracao |dateDisplay }}</td>
@@ -183,7 +183,7 @@
                 condos: {},
                  // Create a new form instance
              form: new Form({
-                 id: '',
+                cd_adm_condo: '',
                  nome: '',
                  cnpj: '',
                  dt_inauguracao: '',
@@ -201,6 +201,9 @@
             }
         },
         methods:{
+          views(){
+            this.form.get('api/adm-condominio/'+this.form.cd_adm_condo)
+          },
             loadCondos(){
       axios.get("api/adm-condominio").then(({ data })=>(this.condos = data.data));
     },
