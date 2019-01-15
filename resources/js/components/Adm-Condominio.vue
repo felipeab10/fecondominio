@@ -23,14 +23,15 @@
                   </tr>
 
                   <tr v-for="condo in condos" key="condo.cd_adm_condo">
-                    <a href="#" @click="views()"><td >{{condo.cd_adm_condo}}</td></a>
+                   <td >{{condo.cd_adm_condo}}</td>
                     <td>{{condo.nome}}</td>
                     <td>{{condo.cnpj}}</td>
                     <td>{{condo.dt_inauguracao |dateDisplay }}</td>
                     <td>{{condo.status}}</td>
                      <td>
+                      <a href="#" @click="views()"><i class="fas fa-eye"></i></a>/
                      <a href="#"><i class="fa fa-edit"></i></a>/
-                     <a href="#"><i class="fas fa-trash-alt red"></i></a>
+                     <a href="#" ><i class="fas fa-trash-alt red"></i></a>
                      </td>
                   </tr>
                   

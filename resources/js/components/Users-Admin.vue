@@ -88,7 +88,7 @@
          </div>
 
         <div class="form-group">
-         <select v-model="form.type" name="type" placeholder="Permisssão" class="form-control" :class="{ 'is-invalid': form.errors.has('type') }"">
+         <select v-model="form.type" name="type" placeholder="Permisssão" class="form-control" :class="{ 'is-invalid': form.errors.has('type') }">
          <option value="">Permissão de Usuário</option>
          <option value="admin">Admin</option>
           <option value="user">Condômino</option>
@@ -103,7 +103,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
         <button v-show="!editmode"  type="submit" class="btn btn-success">Salvar</button>
-        <button v-show="editmode "type="submit" class="btn btn-primary">Editar</button>
+        <button v-show="editmode" type="submit" class="btn btn-primary">Editar</button>
       </div>
       </form>
     </div>

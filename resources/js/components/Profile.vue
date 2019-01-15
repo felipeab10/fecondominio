@@ -7,13 +7,13 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                   
-                  <img class="profile-user-img img-fluid img-circle" src="#" alt="User profile picture">
-                </div>
+                   <img class="profile-user-img img-fluid img-circle " 
+                   :src="getProfilePhoto()" alt="User profile picture">
+                     </div>
 
-                 <h3 class="profile-username text-center"></h3>
+                 <h3 class="profile-username text-center" >{{getName()}}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{getPermission()}}</p>
 
                 
 
@@ -30,35 +30,17 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <strong><i class="fa fa-book mr-1"></i> Education</strong>
+                <strong><i class="fas fa-briefcase"></i> Experiência Profissional</strong>
 
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                  {{getExp_prof()}}
                 </p>
 
                 <hr>
 
-                <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
+                <strong><i class="fa fa-book mr-1"></i>Lembretes</strong>
 
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <p class="text-muted">{{getBio()}}</p>
               </div>
               <!-- /.card-body -->
               
@@ -84,28 +66,41 @@
                         <label for="inputName" class="col-sm-2 control-label">Nome</label>
 
                         <div class="col-sm-10">
-                          <input type="text" v-model="form.name" class="form-control" id="inputName" placeholder="Nome">
+                          <input type="text" v-model="form.name" class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('nome') }" id="inputName" placeholder="Nome">
+                        <has-error :form="form" field="nome"></has-error>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                         <div class="col-sm-10">
-                          <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="email" v-model="form.email" class="form-control" 
+                          :class="{ 'is-invalid': form.errors.has('email') }" id="email" placeholder="Email">
+                        <has-error :form="form" field="email"></has-error>
+                        </div>
+                        </div>
+                      <div class="form-group">
+                        <label for="inputName2"  class="col-sm-2 control-label">Senha</label>
+
+                        <div class="col-sm-10">
+                          <input type="password" v-model="form.password" class="form-control"
+                          :class="{ 'is-invalid': form.errors.has('password') }" id="password" placeholder="Password - Deixe em branco se não for alterar">
+                         <has-error :form="form" field="password"></has-error>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputName2" class="col-sm-2 control-label">Senha</label>
+                        <label for="inputExperience" class="col-sm-2 control-label">Profissional</label>
 
                         <div class="col-sm-10">
-                          <input type="password" class="form-control" id="inputName2" placeholder="Password - Deixe em branco se não for alterar">
+                          <textarea class="form-control" v-model="form.exp_prof" id="inputExperience" placeholder="Cursos,Empregos"></textarea>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                        <label for="inputExperience" class="col-sm-2 control-label">Lembretes</label>
 
                         <div class="col-sm-10">
-                          <textarea class="form-control" v-model="form.bio" id="inputExperience" placeholder="Experience"></textarea>
+                          <textarea class="form-control" v-model="form.bio" id="inputExperience" placeholder="Lembretes"></textarea>
                         </div>
                       </div>
                       <div class="form-group">
@@ -121,15 +116,7 @@
                     </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
+                      
                       <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                           <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Atualizar</button>
@@ -164,16 +151,43 @@
         type: '',
         bio: '',
         photo: '',
+        exp_prof: '',
         remember: false
       })
     }
   },
     methods:{
+        getBio(){
+             return this.form.bio;
+        },
+        getExp_prof(){
+            return this.form.exp_prof;
+        },
+
+        getPermission(){
+            return this.form.type;
+
+        },
+        getName(){
+            return this.form.name;
+        },
+
+
+        getProfilePhoto(){
+                return "img/profile/"+this.form.photo;
+        },
         updateInfo(){
             this.$Progress.start()
+            if(this.form.password == ''){
+                    this.form.password = undefined;
+                }
            this.form.put('api/profile/')
            .then(()=>{
-
+                 swal(
+          'Registro Atualizado!',
+            'Com Sucesso.'
+             )
+             
                this.$Progress.finish()
            })
            .catch(()=>{
@@ -183,7 +197,7 @@
         },
         updateProfile(e){
            let file = e.target.files[0];
-           console.log(file);
+           
            let reader = new FileReader();
 
           if(file['size'] < 2111775){
